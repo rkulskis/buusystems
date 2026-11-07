@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#DD0000">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="genie-marie.css?v=27h">
+  <link rel="stylesheet" href="genie-marie.css?v=27n">
 </head>
 <body>
   <header class="site-header wrap">
@@ -98,10 +98,8 @@
         <div class="phone" role="img" aria-label="Animated demo of an iPhone message thread with Genie Marie. The capabilities it shows are listed in the boxes beside it.">
           <div class="screen">
             <svg id="glass-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-              <linearGradient id="gm-heart" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb0dc"/><stop offset="1" stop-color="#ff4d9d"/></linearGradient>
-              <linearGradient id="gm-thumb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#f7961b"/></linearGradient>
-              <linearGradient id="gm-dislike" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffc247"/><stop offset="1" stop-color="#ef7d1a"/></linearGradient>
             </defs></svg>
+            <div class="dim" id="dim"></div>
             <div class="island"></div>
             <div class="status"><span id="status-time">7:52</span><span class="status-icons">
               <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.500" width="3" height="6.500" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
@@ -109,16 +107,16 @@
               <svg width="27" height="13" viewBox="0 0 27 13" aria-hidden="true"><rect x=".5" y=".5" width="22.500" height="12" rx="3.500" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="19.500" height="9" rx="2.200"/><path d="M24.500 4.500v4c.9-.3 1.500-1.100 1.500-2s-.6-1.700-1.500-2z" opacity=".5"/></svg>
             </span></div>
             <div class="contact">
-              <span class="glass-btn"><svg class="nav-back" viewBox="0 0 12 20" aria-hidden="true"><path d="M10 2 2.500 10 10 18"/></svg></span>
+              <span class="glass-btn"><img class="nav-back" src="assets/ios/back.png" alt=""></span>
               <div class="contact-mid">
                 <span class="org-logo org-logo-avatar" id="logo-anchor"></span>
                 <span class="contact-name"><span id="contact-name">Your School</span><svg viewBox="0 0 8 12" aria-hidden="true"><path d="M2 2l4 4-4 4"/></svg></span>
               </div>
-              <span class="glass-btn"><svg class="nav-video" viewBox="0 0 22 16" aria-hidden="true"><rect x="1" y="1.500" width="13.500" height="13" rx="3.500"/><path d="M14.500 6.500 20 3.200c.4-.2.9 0 .9.500v8.600c0 .5-.5.7-.9.500l-5.500-3.300z"/></svg></span>
+              <span class="glass-btn"><img class="nav-video" src="assets/ios/video.png" alt=""></span>
             </div>
             <div class="thread" id="thread"></div>
             <div class="compose">
-              <span class="compose-plus" aria-hidden="true"></span>
+              <span class="compose-plus" aria-hidden="true"><img src="assets/ios/plus.png" alt=""></span>
               <div class="compose-field"><div class="compose-text" id="compose"><span class="compose-hint">iMessage</span></div><span class="send" id="send" aria-hidden="true"></span></div>
             </div>
             <span class="home-bar"></span>
@@ -164,11 +162,11 @@
       <h2 id="school-title">Find your school</h2>
       <button type="button" class="dialog-close" id="school-close" aria-label="Close">&times;</button>
     </div>
-    <input id="company-search" type="text" role="combobox" aria-expanded="true" aria-controls="company-results" aria-autocomplete="list" aria-label="School name" autocomplete="off" spellcheck="false" placeholder="Search Boston high schools and colleges">
+    <input id="company-search" type="text" role="combobox" aria-expanded="true" aria-controls="company-results" aria-autocomplete="list" aria-label="School name" autocomplete="off" spellcheck="false" placeholder="Search Boston schools">
     <ul id="company-results" role="listbox" aria-label="Schools"></ul>
     <p class="dialog-foot"><span id="search-status">Not listed?</span> <input id="logo-file" class="visually-hidden" type="file" accept="image/png,.png"><label for="logo-file">Upload a PNG</label> <button type="button" class="link-button" id="logo-reset" hidden>Reset</button></p>
   </dialog>
   <script src="schools.js"></script>
-  <script src="genie-marie.js?v=27h"></script>
+  <script src="genie-marie.js?v=27n"></script>
 </body>
 </html>

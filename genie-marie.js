@@ -27,7 +27,8 @@
     document.querySelectorAll(".org-logo").forEach(paintLogo);
     $("#contact-name").textContent = orgName;
     resetBtn.hidden = !hasLogo();
-    logoStatus.textContent = hasLogo() ? "Click it to change your school." : "Click it to find your school.";
+    const press = matchMedia("(hover: none)").matches ? "Tap" : "Click";
+    logoStatus.textContent = `${press} it ${hasLogo() ? "to change" : "to find"} your school.`;
     document.querySelectorAll(".line").forEach((l) => { l.innerHTML = l.innerHTML.replace(prevOrg, esc(orgName)); });
     prevOrg = esc(orgName);
   };
@@ -35,6 +36,9 @@
 
   const fileInput = $("#logo-file"), resetBtn = $("#logo-reset"), logoStatus = $("#logo-status");
   const dialog = $("#school-dialog"), searchInput = $("#company-search");
+  // Keeps the whole picker above the on-screen keyboard.
+  const fitDialog = () => { if (window.visualViewport) dialog.style.maxHeight = `min(36rem, ${visualViewport.height - 24}px)`; };
+  window.visualViewport?.addEventListener("resize", fitDialog);
   const resultsEl = $("#company-results"), statusEl = $("#search-status");
 
   /* ---------- Find your school ---------- */
@@ -114,6 +118,7 @@
     searchInput.value = "";
     search("");
     dialog.showModal();
+    fitDialog();
     searchInput.focus();
   };
   // Every logo slot opens the search, including ones the demo adds later.
@@ -269,7 +274,7 @@
     if (s.a) return 800 + (s.hold || 1500);
     if (s.u) return 350 + s.u.length * TYPE_MS + 350 + 130 + 650;
     if (s.tapU) return 800;
-    if (s.tapG || s.tapA) return 250 + 450 + 350 + 900;
+    if (s.tapG || s.tapA) return 250 + 650 + 400 + 900;
     if (s.call) return 900 + s.call.reduce((t, [, text]) => t + 1100 + text.length * 26, 0) + 1300 + 320;
     return 0;
   };
@@ -308,25 +313,41 @@
   const clearDelivered = () => thread.querySelectorAll(".delivered").forEach((d) => d.remove());
   const last = (sel) => { const all = thread.querySelectorAll(sel); return all[all.length - 1]; };
 
-  const thumb = "M2 10h4v11H2zM8 21V9.6l4.4-7.1c1.5-.4 2.9.7 2.700 2.300L14.500 9H20c1.300 0 2.300 1.200 2 2.500l-1.800 7.900c-.2.9-1 1.600-2 1.600z";
-  const heart = "M12 21S2.500 15 2.500 8.400A5.200 5.200 0 0 1 12 5.500a5.200 5.200 0 0 1 9.500 2.900C21.500 15 12 21 12 21z";
-  const ICONS = {
-    like: `<svg viewBox="0 0 24 24" fill="url(#gm-thumb)"><path d="${thumb}"/></svg>`,
-    heart: `<svg viewBox="0 0 24 24" fill="url(#gm-heart)"><path d="${heart}"/></svg>`,
-    dislike: `<svg viewBox="0 0 24 24" fill="url(#gm-dislike)" transform="rotate(180)"><path d="${thumb}"/></svg>`,
+  // Reaction artwork, cut from Apple's iOS 27 reaction tray (assets/ios).
+  const art = (name) => `<img src="assets/ios/${name}.png" alt="">`;
+  [ "heart", "like", "dislike", "haha", "bang", "ask", "love", "smile" ].forEach((n) => { new Image().src = `assets/ios/${n}.png`; });
+  const dim = $("#dim");
+  const clearPress = () => {
+    dim.classList.remove("is-on");
+    thread.querySelectorAll(".is-lifted").forEach((m) => m.classList.remove("is-lifted"));
   };
-  // The reaction tray opens over a message, the choice highlights, and it closes into the reaction.
+  // Pressing a message greys the screen, opens the tray, highlights the choice, then closes into the reaction.
   const pickReaction = async (el, kind, id) => {
     if (!el) return;
+    el.classList.add("has-tap", "is-lifted");
+    dim.classList.add("is-on");
+    const bud = document.createElement("span");
+    bud.className = "tap tap-bud";
+    bud.innerHTML = art("smile");
     const tray = document.createElement("div");
     tray.className = "tray";
-    tray.innerHTML = `<span data-r="heart">${ICONS.heart}</span><span data-r="like">${ICONS.like}</span><span>${ICONS.dislike}</span><span><b>HA<br>HA</b></span><span><i>!!</i></span><span><i class="q">?</i></span>`;
-    el.appendChild(tray);
+    tray.innerHTML = ["heart", "like", "dislike", "haha", "bang", "ask", "love"].map((n) => `<span data-r="${n}">${art(n)}</span>`).join("");
+    el.append(bud, tray);
+    // The tray spans the screen and centers on it, wherever the message sits.
+    const screenBox = dim.getBoundingClientRect();
+    const scale = screenBox.width / dim.offsetWidth || 1;
+    tray.style.width = `${Math.min(268, dim.offsetWidth - 16)}px`;
+    tray.style.left = `${(screenBox.left + screenBox.width / 2 - el.getBoundingClientRect().left) / scale - tray.offsetWidth / 2}px`;
     glass(tray);
-    await wait(450, id);
-    tray.querySelector(`[data-r="${kind}"]`).classList.add("is-picked");
-    await wait(350, id);
-    tray.remove();
+    try {
+      await wait(650, id);
+      tray.querySelector(`[data-r="${kind}"]`).classList.add("is-picked");
+      await wait(400, id);
+    } finally {
+      tray.remove();
+      bud.remove();
+      clearPress();
+    }
     tapback(el, kind);
   };
   const tapback = (el, kind) => {
@@ -334,7 +355,7 @@
     el.classList.add("has-tap");
     const t = document.createElement("span");
     t.className = `tap tap-${kind}`;
-    t.innerHTML = ICONS[kind];
+    t.innerHTML = art(kind);
     el.appendChild(t);
     toBottom();
   };
@@ -435,6 +456,7 @@
     current = i;
     const [time, ampm] = chapterTimes[i].split(" ");
     $("#status-time").textContent = time;
+    clearPress();
     thread.innerHTML = `<div class="stamp"><b>iMessage</b><br>Today ${time} ${ampm}</div>`;
     callEl.hidden = true;
     resetCompose();
@@ -463,7 +485,13 @@
     }
   };
 
-  chapterEls.forEach((c, n) => c.addEventListener("click", () => run(n)));
+  // On small screens the tabs stick above the phone, so choosing a demo brings the phone fully into view.
+  const narrow = matchMedia("(max-width: 820px)");
+  chapterEls.forEach((c, n) => c.addEventListener("click", () => {
+    run(n);
+    const bar = $(".chapters").getBoundingClientRect();
+    if (narrow.matches && stage.getBoundingClientRect().bottom > innerHeight) scrollBy(0, bar.top);
+  }));
 
   const pauseBtn = $("#pause");
   if (reduced) pauseBtn.hidden = true;

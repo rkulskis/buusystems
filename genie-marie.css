@@ -126,8 +126,8 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .compose::before { z-index: -1; top: 0; bottom: 0; background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 70%); -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%); }
 .contact { position: absolute; z-index: 4; top: 44px; left: 0; right: 0; display: flex; align-items: flex-start; justify-content: space-between; padding: 0 11px; }
 .glass-btn { display: grid; place-items: center; flex: none; width: 33px; height: 33px; border-radius: 50%; }
-.nav-back { width: 9px; height: 15px; margin-right: 1px; fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.nav-video { width: 20px; height: 14px; fill: none; stroke: #000; stroke-width: 1.7; stroke-linejoin: round; }
+.nav-back { display: block; height: 15px; margin-right: 1px; }
+.nav-video { display: block; height: 14px; }
 .contact-mid { display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding-inline: 6px; }
 .contact-name { position: relative; display: flex; align-items: center; gap: 3px; max-width: 100%; box-sizing: border-box; margin-top: -6px; padding: 3px 9px; border-radius: 12px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; color: #000; }
 .contact-name > span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -204,15 +204,21 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .msg-g .tap, .msg-attach .tap { right: -16px; top: -17px; }
 .msg-g .tap::before, .msg-attach .tap::before { right: -1px; }
 .msg-g .tap::after, .msg-attach .tap::after { right: -4px; }
-.tap svg { position: relative; z-index: 1; width: 16px; height: 16px; }
+.tap img { position: relative; z-index: 1; display: block; width: 18px; height: 18px; }
 /* The reaction tray that opens when you press a message. */
-.tray { background: rgba(255, 255, 255, 0.84); position: absolute; z-index: 5; left: -2px; bottom: calc(100% + 5px); display: flex; align-items: center; gap: 3px; padding: 4px 7px; border-radius: 22px; animation: tray 0.26s cubic-bezier(0.3, 1.5, 0.5, 1); }
-.tray span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; transition: background 0.15s; }
+.tray { background: rgba(255, 255, 255, 0.86); position: absolute; z-index: 5; bottom: calc(100% + 11px); display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: 268px; padding: 5px 8px; border-radius: 24px; animation: tray 0.26s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.tray span { display: grid; place-items: center; flex: none; width: 33px; height: 33px; border-radius: 50%; transition: background 0.15s; }
 .tray span.is-picked { background: #36aafd; }
-.tray svg { width: 20px; height: 20px; }
-.tray b { font-size: 9px; line-height: 0.85; font-weight: 800; text-align: center; color: #27b4ef; }
-.tray i { font-size: 18px; font-style: normal; font-weight: 800; letter-spacing: -0.08em; color: #ff5a6e; }
-.tray i.q { color: #a77bf0; letter-spacing: 0; }
+.tray img { display: block; width: 25px; height: 25px; }
+/* The bud joining the tray to the message, with the empty smiley Apple shows there. */
+.tap.tap-bud, .tap.tap-bud::before, .tap.tap-bud::after { background: rgba(255, 255, 255, 0.96); box-shadow: none; }
+.tap.tap-bud img { width: 19px; height: 19px; opacity: 0.42; }
+/* The thread behind a pressed message blurs and greys out, the message lifts above it and grey bubbles turn white. */
+.dim { position: absolute; z-index: 3; inset: 0; pointer-events: none; opacity: 0; background: rgba(222, 222, 226, 0.66); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); transition: opacity 0.2s; }
+.dim.is-on { opacity: 1; }
+.msg.is-lifted { z-index: 6; }
+.msg-g.is-lifted { background: #fff; }
+.msg-g.is-lifted::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 17'%3E%3Cpath fill='%23fff' d='M13 0H7C7 6 5 12 0 16.500c4 .8 9-.5 13-4.500z'/%3E%3C/svg%3E"); }
 
 /* Attachments */
 .att { overflow: hidden; background: #f1f1f3; border: 1px solid #e0e0e4; border-radius: 15px; }
@@ -244,13 +250,12 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 /* Compose */
 .compose { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-end; gap: 8px; padding: 14px 11px 26px; }
 .compose-plus { position: relative; width: 31px; height: 31px; flex: none; border-radius: 50%; }
-.compose-plus::before, .compose-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 13px; height: 1.6px; background: #000; border-radius: 1px; transform: translate(-50%, -50%); }
-.compose-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+.compose-plus img { position: absolute; left: 50%; top: 50%; width: 13px; transform: translate(-50%, -50%); }
 .compose-field { display: flex; align-items: flex-end; flex: 1; min-width: 0; min-height: 31px; box-sizing: border-box; padding: 3px 3px 3px 12px; border-radius: 16px; }
 .compose-text { flex: 1; min-width: 0; max-height: 72px; overflow: hidden; padding: 3px 4px 3px 0; }
 .compose-hint { color: #b0b0b4; }
 .caret { display: inline-block; width: 1.5px; height: 14px; margin-bottom: -2px; background: #0188fd; animation: blink 0.9s infinite; }
-.send { position: relative; width: 25px; height: 25px; flex: none; border-radius: 50%; transition: transform 0.15s; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23a3a3a8' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 10.500v3M7.500 7.500v9M12 4v16M16.500 7.500v9M21 10.500v3'/%3E%3C/svg%3E") center / 15px no-repeat; }
+.send { position: relative; width: 25px; height: 25px; flex: none; border-radius: 50%; transition: transform 0.15s; background: url("assets/ios/wave.png") center / 15px auto no-repeat; }
 .send.is-ready { background: #0188fd; }
 .send.is-ready::after { content: ""; position: absolute; left: 8px; top: 9px; width: 9px; height: 9px; border: solid #fff; border-width: 2px 0 0 2px; transform: rotate(45deg); }
 .send.is-ready::before { content: ""; position: absolute; left: 11.500px; top: 7px; width: 2px; height: 12px; background: #fff; }
@@ -347,27 +352,45 @@ button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 }
 
 @media (max-width: 820px) {
-  .gm-hero { grid-template-columns: minmax(0, 1fr); }
-  .gm-stage { display: grid; justify-content: center; justify-items: center; }
-  .gm-hero { gap: 0; }
-  .gm-copy { display: contents; }
-  .gm-stage { order: 1; margin-top: 1rem; }
-  .stage-foot { order: 2; margin-top: 1rem; }
-  .genie-art { width: 170px; }
-  .org-logo-bottle { font-size: 7.5px; }
-  .org-logo-bottle:not(.has-image)::after { font-size: 9px; }
-  .brand-icon { width: 22px; height: 22px; }
-  .chapters { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.3rem; }
-  .chapter, .chapter:last-child { grid-column: auto; padding: 0.45rem 0.2rem 0.55rem; text-align: center; }
-  .chapter strong { flex-direction: column; gap: 0.2rem; margin: 0; font: 500 0.75rem/1.15 var(--text); }
+  /* A single column: title, lamp, then the tabs and phone, with the tabs staying in view above the phone. */
+  .gm-hero { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding-block: 0.5rem 3.5rem; }
+  .gm-copy, .genie-stage, .stage-foot { display: contents; }
+  .gm-copy h1 { order: 1; }
+  .gm-copy .lede { order: 2; margin-bottom: 1.5rem; }
+  .genie-art { order: 3; width: 214px; }
+  .logo-note { order: 4; margin: 1rem 0 2.25rem; text-align: center; color: var(--muted); font-size: 0.9375rem; }
+  .logo-note small { display: block; }
+  .chapters { order: 5; position: sticky; z-index: 10; top: 0; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.3rem; margin: 0 -0.25rem; padding: 0.5rem 0.25rem; background: #fff; }
+  .gm-stage { order: 6; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; margin-top: 0.5rem; }
+  .pause { order: 7; align-self: center; min-height: 44px; margin-top: 0.75rem; padding: 0 1rem; font-size: 0.9375rem; }
+  .phone { height: 660px; height: clamp(570px, calc(100svh - 92px), 660px); }
+  .org-logo-bottle { font-size: 9px; }
+  .org-logo-bottle:not(.has-image)::after { font-size: 10px; }
+  .brand-icon { width: 20px; height: 20px; }
+  .chapter, .chapter:last-child { grid-column: auto; padding: 0.4rem 0.15rem 0.45rem; text-align: center; }
+  .chapter strong { flex-direction: column; gap: 0.2rem; margin: 0; font: 500 0.8125rem/1.1 var(--text); }
+  .chapter strong svg { width: 20px; height: 20px; }
   .chapter small { display: none; }
-  .ask { grid-template-columns: minmax(0, 1fr); }
-  .ask { padding-block: 4rem; }
+  .ask { grid-template-columns: minmax(0, 1fr); padding-block: 3.5rem; }
+  .asks li:not(.asks-delivered) { max-width: 92%; }
+  .cta { padding-block: 4rem; }
+  /* The search box sits at the top so the keyboard never covers it, and at 16px iOS doesn't zoom in on focus. */
+  #school-dialog { margin-top: 0.75rem; max-height: calc(100dvh - 1.5rem); }
+  #company-search { font-size: 16px; }
+  .dialog-close { min-width: 44px; min-height: 44px; margin: -0.5rem -0.75rem -0.5rem 0; }
+  .company { min-height: 44px; }
 }
 
 @media (max-width: 480px) {
-  .gm-stage { justify-content: stretch; }
   .phone { width: min(316px, 100%); }
+  .chapter strong { font-size: 0.6875rem; }
+}
+
+@media (max-width: 350px) {
+  .chapter strong { font-size: 0.625rem; }
+  .status { padding-inline: 20px 16px; font-size: 13px; }
+  .status-icons { gap: 2px; }
+  .island { width: 72px; }
 }
 
 .is-paused * { animation-play-state: paused !important; }
