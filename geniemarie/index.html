@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Text Genie Marie | BUU Systems</title>
+  <meta name="description" content="Text Genie Marie what you want on your iPhone Home Screen. She builds the widget or app and texts you the link.">
+  <meta name="theme-color" content="#DD0000">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <meta property="og:site_name" content="BUU Systems">
+  <meta property="og:title" content="Text Genie Marie">
+  <meta property="og:description" content="Text her what you want on your Home Screen. She builds it.">
+  <meta property="og:url" content="https://buusystems.com/geniemarie/">
+  <meta property="og:image" content="https://buusystems.com/geniemarie/genie-marie.jpg">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://buusystems.com/geniemarie/">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    :root { --imsg: #0a84ff; --imsg-deep: #0066d6; --bubble-in: #e9e9eb; --genie-soft: #eaf5ff; }
+    .gm-page { padding-block: 1rem 5rem; }
+    .gm-top { display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 4rem; align-items: center; padding-block: 2rem 4rem; }
+    .gm-top h1 { font-size: clamp(3rem, 8vw, 5.5rem); margin-bottom: .75rem; }
+    .gm-top .lede { font-size: 1.3rem; max-width: 34rem; color: var(--muted); }
+    .gm-who { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.75rem; }
+    .gm-who img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--rule); }
+    .gm-who span { font-size: .95rem; color: var(--muted); line-height: 1.35; }
+    .gm-who strong { display: block; color: var(--ink); font-size: 1.05rem; }
+
+    .text-me { display: inline-flex; align-items: center; gap: .7rem; padding: 1rem 1.6rem 1rem 1.1rem; border-radius: 999px;
+      background: var(--imsg); color: #fff; font-size: 1.15rem; font-weight: 600; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(10, 132, 255, .28); transition: background-color .15s, transform .15s; }
+    .text-me:hover { background: var(--imsg-deep); }
+    .text-me:active { transform: scale(.97); }
+    .text-me img { width: 30px; height: 30px; border-radius: 8px; background: #fff; padding: 3px; }
+    .text-me:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    .gm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+    .gm-number { color: var(--muted); font-size: .98rem; }
+    .gm-number a { color: var(--ink); }
+
+    /* The phone thread: every bubble is a ready-to-send text */
+    .thread-card { background: #fff; border: 1px solid var(--rule); border-radius: 28px; padding: 1.25rem 1rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,.08); }
+    .thread-head { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding-bottom: .9rem; border-bottom: 1px solid var(--rule); margin-bottom: .9rem; }
+    .thread-head img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .thread-head small { font-size: .8rem; color: var(--muted); }
+    .bubbles { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
+    .bubbles li { display: flex; }
+    .bubbles .in { justify-content: flex-start; }
+    .bubbles .out { justify-content: flex-end; }
+    .bubble { max-width: 82%; padding: .55rem .85rem; border-radius: 20px; font-size: .98rem; line-height: 1.35; }
+    .in .bubble { background: var(--bubble-in); color: #000; border-bottom-left-radius: 6px; }
+    .out .bubble { background: var(--imsg); color: #fff; text-decoration: none; border-bottom-right-radius: 6px; transition: background-color .15s, transform .15s; }
+    .out a.bubble:hover { background: var(--imsg-deep); }
+    .out a.bubble:active { transform: scale(.97); }
+    .thread-hint { text-align: center; font-size: .8rem; color: var(--muted); margin: .9rem 0 0; }
+
+    .gm-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-block: 3.5rem; border-top: 1px solid var(--rule); }
+    .gm-steps h2 { font-size: 1.9rem; margin: .5rem 0 .6rem; }
+    .gm-steps p { color: var(--muted); }
+    .gm-steps .num { font: italic 1.5rem/1 var(--display); color: var(--red); }
+
+    .gm-desk { display: none; align-items: center; gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--rule); background: var(--tint); margin-top: 2.5rem; max-width: 34rem; }
+    .gm-desk img { width: 128px; height: 128px; background: #fff; padding: 6px; }
+    .gm-desk p { margin: 0; color: var(--muted); }
+    .gm-desk strong { color: var(--ink); display: block; margin-bottom: .25rem; }
+    @media (hover: hover) and (pointer: fine) and (min-width: 900px) { .gm-desk { display: flex; } }
+
+    .gm-end { text-align: center; padding-block: 3.5rem 1rem; border-top: 1px solid var(--rule); }
+    .gm-end h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 1.5rem; }
+
+    @media (max-width: 860px) {
+      .gm-top { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-top: .5rem; }
+      .gm-steps { grid-template-columns: 1fr; gap: 1.5rem; }
+      .text-me { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header wrap">
+    <a href="/" aria-label="BUU Systems home"><img class="logo" src="/assets/logo.svg" alt="BUU Systems"></a>
+  </header>
+
+  <main class="gm-page wrap">
+    <section class="gm-top">
+      <div>
+        <div class="gm-who">
+          <img src="genie-marie.jpg" alt="Genie Marie" width="64" height="64">
+          <span><strong>Genie Marie</strong>Usually replies in a minute</span>
+        </div>
+        <h1>Text&nbsp;me.</h1>
+        <p class="lede">Tell me what you want on your Home Screen. I'll build the widget or app and text you the link to add it.</p>
+        <div class="gm-actions">
+          <a class="text-me sms" href="sms:+12132483916?&amp;body=Hi%20Genie%20Marie!" data-body="Hi Genie Marie!">
+            <img src="/assets/brand/imessage.svg" alt="">Text Genie Marie
+          </a>
+          <span class="gm-number"><a class="sms" href="sms:+12132483916">(213) 248-3916</a> · <a href="genie-marie.vcf">Save contact</a></span>
+        </div>
+        <div class="gm-desk">
+          <img src="text-qr.svg" alt="QR code that opens a text to Genie Marie" width="128" height="128">
+          <p><strong>On your computer?</strong>Point your iPhone camera here and it opens a text to Genie Marie.</p>
+        </div>
+      </div>
+
+      <div class="thread-card" aria-label="Example texts you can send Genie Marie">
+        <div class="thread-head">
+          <img src="genie-marie.jpg" alt="" width="48" height="48">
+          <small>Genie Marie · iMessage</small>
+        </div>
+        <ul class="bubbles">
+          <li class="in"><span class="bubble">Hi! What should I put on your Home Screen?</span></li>
+          <li class="out"><a class="bubble sms" href="#" data-body="Make me a widget that counts glasses of water and resets every morning">A widget that counts my water and resets every morning</a></li>
+          <li class="out"><a class="bubble sms" href="#" data-body="Make me a countdown widget to my next trip">A countdown to my next trip</a></li>
+          <li class="out"><a class="bubble sms" href="#" data-body="Make me a checklist app for my morning routine with a widget I can tick off">A morning checklist I can tick off from the widget</a></li>
+          <li class="out"><a class="bubble sms" href="#" data-body="Show Mass and confession times near me on a widget">Mass and confession times near me</a></li>
+          <li class="in"><span class="bubble">On it ✨ Here's your link to add it.</span></li>
+        </ul>
+        <p class="thread-hint">Tap a blue message to send it to her.</p>
+      </div>
+    </section>
+
+    <section class="gm-steps" aria-label="How it works">
+      <div><span class="num">1</span><h2>Text what you want</h2><p>In your own words, like texting a friend who's good with computers.</p></div>
+      <div><span class="num">2</span><h2>Add it to your phone</h2><p>She texts back a link. One tap puts the app and its widget on your Home Screen.</p></div>
+      <div><span class="num">3</span><h2>Change it by text</h2><p>Bigger font, new colors, reset weekly instead of daily. Just ask.</p></div>
+    </section>
+
+    <section class="gm-end">
+      <h2>What do you want on your Home&nbsp;Screen?</h2>
+      <a class="text-me sms" href="sms:+12132483916?&amp;body=Hi%20Genie%20Marie!" data-body="Hi Genie Marie!">
+        <img src="/assets/brand/imessage.svg" alt="">Text Genie Marie
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <img class="logo logo-small" src="/assets/logo.svg" alt="BUU Systems">
+    <small>Genie Marie is a service of BUU Systems LLC. &copy; 2026</small>
+  </footer>
+  <script>
+    // Every .sms link opens Messages with a prefilled text. iOS and macOS read
+    // "sms:<number>&body=", Android reads "sms:<number>?body="; "?&body=" works on both.
+    var NUMBER = "+12132483916";
+    document.querySelectorAll("a.sms[data-body]").forEach(function (a) {
+      a.href = "sms:" + NUMBER + "?&body=" + encodeURIComponent(a.dataset.body);
+    });
+  </script>
+</body>
+</html>
