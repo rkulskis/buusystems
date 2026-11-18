@@ -74,6 +74,12 @@
       .gm-steps { grid-template-columns: 1fr; gap: 1.5rem; }
       .text-me { width: 100%; justify-content: center; }
     }
+
+    .gm-price { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; padding-block: 3.5rem; border-top: 1px solid var(--rule); }
+    .gm-price h2 { font-size: 1.9rem; margin: .5rem 0 .6rem; }
+    .gm-price .amt { font: italic 1.5rem/1 var(--display); color: var(--red); }
+    .gm-price p { color: var(--muted); }
+    @media (max-width: 860px) { .gm-price { grid-template-columns: 1fr; gap: 1.5rem; } }
   </style>
 </head>
 <body>
@@ -125,6 +131,11 @@
       <div><span class="num">3</span><h2>Change it by text</h2><p>Bigger font, new colors, reset weekly instead of daily. Just ask.</p></div>
     </section>
 
+    <section class="gm-price" aria-label="Pricing">
+      <div><span class="amt">Free</span><h2>Your first project</h2><p>One app and its widget, with a few rounds of changes to get it right.</p></div>
+      <div><span class="amt">$4.99 a month</span><h2>Each project after that</h2><p>Hosting, its widget and 5 changes a month; extra changes are $1. Cloud usage is billed at cost plus 1%, usually a few cents. Pay with Apple Pay or card and cancel any time.</p></div>
+    </section>
+
     <section class="gm-end">
       <h2>What do you want on your Home&nbsp;Screen?</h2>
       <a class="text-me sms" href="sms:+12132483916?&amp;body=Hi%20Genie%20Marie!" data-body="Hi Genie Marie!">
@@ -135,7 +146,7 @@
 
   <footer class="site-footer wrap">
     <img class="logo logo-small" src="/assets/logo.svg" alt="BUU Systems">
-    <small>Genie Marie is a service of BUU Systems LLC. &copy; 2026</small>
+    <small>Genie Marie is a service of BUU Systems LLC. &copy; 2026 · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:ross@buusystems.com">ross@buusystems.com</a></small>
   </footer>
   <script>
     // Every .sms link opens Messages with a prefilled text. iOS and macOS read

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms of Service | Genie Marie</title>
+  <meta name="description" content="The terms for using Genie Marie, a service of BUU Systems LLC.">
+  <meta name="theme-color" content="#DD0000">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <meta property="og:site_name" content="BUU Systems">
+  <meta property="og:title" content="Terms of Service">
+  <meta property="og:description" content="Text her what you want on your Home Screen. She builds it.">
+  <meta property="og:url" content="https://buusystems.com/geniemarie/terms.html">
+  <meta property="og:image" content="https://buusystems.com/geniemarie/genie-marie.jpg">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://buusystems.com/geniemarie/terms.html">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    :root { --imsg: #0a84ff; --imsg-deep: #0066d6; --bubble-in: #e9e9eb; --genie-soft: #eaf5ff; }
+    .gm-page { padding-block: 1rem 5rem; }
+    .gm-top { display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 4rem; align-items: center; padding-block: 2rem 4rem; }
+    .gm-top h1 { font-size: clamp(3rem, 8vw, 5.5rem); margin-bottom: .75rem; }
+    .gm-top .lede { font-size: 1.3rem; max-width: 34rem; color: var(--muted); }
+    .gm-who { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.75rem; }
+    .gm-who img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--rule); }
+    .gm-who span { font-size: .95rem; color: var(--muted); line-height: 1.35; }
+    .gm-who strong { display: block; color: var(--ink); font-size: 1.05rem; }
+
+    .text-me { display: inline-flex; align-items: center; gap: .7rem; padding: 1rem 1.6rem 1rem 1.1rem; border-radius: 999px;
+      background: var(--imsg); color: #fff; font-size: 1.15rem; font-weight: 600; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(10, 132, 255, .28); transition: background-color .15s, transform .15s; }
+    .text-me:hover { background: var(--imsg-deep); }
+    .text-me:active { transform: scale(.97); }
+    .text-me img { width: 30px; height: 30px; border-radius: 8px; background: #fff; padding: 3px; }
+    .text-me:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    .gm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+    .gm-number { color: var(--muted); font-size: .98rem; }
+    .gm-number a { color: var(--ink); }
+
+    /* The phone thread: every bubble is a ready-to-send text */
+    .thread-card { background: #fff; border: 1px solid var(--rule); border-radius: 28px; padding: 1.25rem 1rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,.08); }
+    .thread-head { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding-bottom: .9rem; border-bottom: 1px solid var(--rule); margin-bottom: .9rem; }
+    .thread-head img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .thread-head small { font-size: .8rem; color: var(--muted); }
+    .bubbles { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
+    .bubbles li { display: flex; }
+    .bubbles .in { justify-content: flex-start; }
+    .bubbles .out { justify-content: flex-end; }
+    .bubble { max-width: 82%; padding: .55rem .85rem; border-radius: 20px; font-size: .98rem; line-height: 1.35; }
+    .in .bubble { background: var(--bubble-in); color: #000; border-bottom-left-radius: 6px; }
+    .out .bubble { background: var(--imsg); color: #fff; text-decoration: none; border-bottom-right-radius: 6px; transition: background-color .15s, transform .15s; }
+    .out a.bubble:hover { background: var(--imsg-deep); }
+    .out a.bubble:active { transform: scale(.97); }
+    .thread-hint { text-align: center; font-size: .8rem; color: var(--muted); margin: .9rem 0 0; }
+
+    .gm-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-block: 3.5rem; border-top: 1px solid var(--rule); }
+    .gm-steps h2 { font-size: 1.9rem; margin: .5rem 0 .6rem; }
+    .gm-steps p { color: var(--muted); }
+    .gm-steps .num { font: italic 1.5rem/1 var(--display); color: var(--red); }
+
+    .gm-desk { display: none; align-items: center; gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--rule); background: var(--tint); margin-top: 2.5rem; max-width: 34rem; }
+    .gm-desk img { width: 128px; height: 128px; background: #fff; padding: 6px; }
+    .gm-desk p { margin: 0; color: var(--muted); }
+    .gm-desk strong { color: var(--ink); display: block; margin-bottom: .25rem; }
+    @media (hover: hover) and (pointer: fine) and (min-width: 900px) { .gm-desk { display: flex; } }
+
+    .gm-end { text-align: center; padding-block: 3.5rem 1rem; border-top: 1px solid var(--rule); }
+    .gm-end h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 1.5rem; }
+
+    @media (max-width: 860px) {
+      .gm-top { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-top: .5rem; }
+      .gm-steps { grid-template-columns: 1fr; gap: 1.5rem; }
+      .text-me { width: 100%; justify-content: center; }
+    }
+
+    .gm-pr</head>
+<body>
+  <header class="site-header wrap">
+    <a href="/" aria-label="BUU Systems home"><img class="logo" src="/assets/logo.svg" alt="BUU Systems"></a>
+  </header>
+
+  <main class="doc wrap">
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated November 17, 2026</p>
+    <p>These terms are an agreement between you and BUU Systems LLC ("we", "us"), a Massachusetts limited liability company that runs Genie Marie. By texting Genie Marie or paying for a project, you agree to them.</p>
+
+    <h2>The service</h2>
+    <p>You describe what you want by text message. Genie Marie builds web apps and widgets for you and hosts them. The results are made by AI and can be wrong, so check anything that matters before you rely on it.</p>
+
+    <h2>Who can use it</h2>
+    <p>You must be at least 13. If you're under 18, you need a parent or guardian's permission, and they agree to these terms for you. Genie Marie isn't meant for children under 13, and we don't knowingly collect their information.</p>
+
+    <h2>Your account</h2>
+    <p>Your account is your phone number. Anyone who can text from your phone can change your apps, so keep it secure.</p>
+
+    <h2>Prices and payment</h2>
+    <p>Your first project is free, with a limited number of changes. Each project after that is $4.99 a month and includes 5 changes a month; extra changes are $1 each. Cloud usage for your apps is billed at our cost plus 1%. Prices are shown before you pay. Plans renew monthly until you cancel, and usage charges are billed at the end of each period. Payments are processed by Stripe; Apple Pay is handled by Apple and Stripe. Sales tax is added where the law requires it.</p>
+
+    <h2>Cancelling and refunds</h2>
+    <p>You can cancel any time from the billing link Genie Marie texts you or from your receipt. You keep access until the end of the period you paid for. If something didn't work, email <a href="mailto:ross@buusystems.com">ross@buusystems.com</a> within 30 days and we'll refund that month.</p>
+
+    <h2>Acceptable use</h2>
+    <p>Don't use Genie Marie for anything illegal, to harm or harass others, to send spam, to collect other people's data without their consent, or to get around its limits or security. We may pause or remove projects that do.</p>
+
+    <h2>Limits</h2>
+    <p>Each plan has limits on storage, run time, requests and changes. We may slow down or pause a project that goes over them and will tell you by text.</p>
+
+    <h2>Your content</h2>
+    <p>You own what you ask us to make and the data you put in. You give us permission to store and run it to provide the service. Accounts you connect (like Google) are used only for the apps you ask for, and you can disconnect them any time.</p>
+
+    <h2>Ending the service</h2>
+    <p>You can stop any time. We may end the service with 30 days' notice, and we'll let you export your apps.</p>
+
+    <h2>Disclaimer and liability</h2>
+    <p>The service is provided "as is", without warranties. To the extent the law allows, we aren't liable for indirect or consequential damages, and our total liability is limited to what you paid us in the 3 months before the claim.</p>
+
+    <h2>Changes and law</h2>
+    <p>We'll text you before material changes to these terms take effect. Massachusetts law governs these terms.</p>
+
+    <h2>Contact</h2>
+    <p>BUU Systems LLC, 316 Cornell St, Apt 2, Roslindale, MA 02131 · <a href="mailto:ross@buusystems.com">ross@buusystems.com</a></p>
+  </main>
+
+  <footer class="site-footer wrap">
+    <img class="logo logo-small" src="/assets/logo.svg" alt="BUU Systems">
+    <small>Genie Marie is a service of BUU Systems LLC. &copy; 2026 · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:ross@buusystems.com">ross@buusystems.com</a></small>
+  </footer>
+</body>
+</html>
